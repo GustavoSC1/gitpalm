@@ -31,7 +31,7 @@ public class ApiBinding {
 			public ClientHttpResponse intercept(HttpRequest request, byte[] bytes, ClientHttpRequestExecution execution) throws IOException {
 				request.getHeaders().add("Content-Type", "application/json");
 				request.getHeaders().add("ACCEPT", "application/vnd.github.nebula-preview+json");
-				request.getHeaders().add("Authorization", "Bearer  " + accessToken);	
+				request.getHeaders().add("Authorization", "Bearer  " + accessToken);
 				return execution.execute(request, bytes);
 			}
 		};
