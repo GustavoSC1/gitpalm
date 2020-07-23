@@ -31,4 +31,17 @@ public class RepositoryService {
 				.build();
 		return apiBinding.getRestTemplate().exchange(uri.toString(), HttpMethod.GET, null, new ParameterizedTypeReference<List<RepositoryDTO>>() {});
 	}
+	
+	public ResponseEntity<List<RepositoryDTO>> listSpecifiedUserRepository(String username, String type, String sort, String direction){
+		UriComponents uri = UriComponentsBuilder.newInstance()
+			.scheme("https")
+			.host("api.github.com")
+			.path("/users/"+username+"/repos")
+			.queryParam("type", type)
+			.queryParam("sort", sort)
+			.queryParam("direction", direction)
+			.build();
+		
+		return apiBinding.getRestTemplate().exchange(uri.toString(), HttpMethod.GET, null, new ParameterizedTypeReference<List<RepositoryDTO>>() {});
+	}
 }
