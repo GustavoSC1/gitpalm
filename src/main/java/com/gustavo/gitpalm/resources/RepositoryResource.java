@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.gustavo.gitpalm.dto.RepositoryDTO;
 import com.gustavo.gitpalm.services.RepositoryService;
 
@@ -35,7 +36,10 @@ public class RepositoryResource {
 		
 		return repositoryService.listSpecifiedUserRepository(username, type, sort, direction);
 	}
-		
-		
+	
+	@GetMapping(value="{owner}/{repo}")
+	public ResponseEntity<RepositoryDTO> getRepository(@PathVariable String owner, @PathVariable String repo){
+		return repositoryService.getRepository(owner, repo);
+	}
 	
 }
