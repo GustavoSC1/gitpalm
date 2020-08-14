@@ -9,6 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.gustavo.gitpalm.api.ApiBinding;
 import com.gustavo.gitpalm.dto.SearchRepositoryDTO;
+import com.gustavo.gitpalm.dto.SearchUserDTO;
 
 @Service
 public class SearchService {
@@ -29,6 +30,21 @@ public class SearchService {
 				.build();
 		
 		return apiBinding.getRestTemplate().exchange(uri.toString(), HttpMethod.GET, null, SearchRepositoryDTO.class);
+	}
+	
+	public ResponseEntity<SearchUserDTO> searchUsers(String query, String sort, String order, Integer per_page, Integer page){
+		UriComponents uri = UriComponentsBuilder.newInstance()
+				.scheme("https")
+				.host("api.github.com")
+				.path("/search/users")
+				.queryParam("q", query)
+				.queryParam("sort", sort)
+				.queryParam("order", order)
+				.queryParam("per_page", per_page)
+				.queryParam("page", page)
+				.build();
+		
+		return apiBinding.getRestTemplate().exchange(uri.toString(), HttpMethod.GET, null, SearchUserDTO.class);
 	}
 	
 }
