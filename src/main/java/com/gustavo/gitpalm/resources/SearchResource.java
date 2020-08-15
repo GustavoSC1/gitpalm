@@ -19,7 +19,7 @@ public class SearchResource {
 	@Autowired
 	private SearchService searchService;
 	
-	@GetMapping(value="/repositories")
+	@GetMapping(value="/repositories", produces = "application/json")
 	public ResponseEntity<SearchRepositoryDTO> searchRepositories(@RequestParam(value="q") String query,
 			@RequestParam(value="sort", defaultValue="") String sort,
 			@RequestParam(value="order", defaultValue="desc") String order,
@@ -29,7 +29,7 @@ public class SearchResource {
 		return searchService.searchRepositories(query, sort, order, per_page, page);		
 	}
 	
-	@GetMapping(value="/users")
+	@GetMapping(value="/users", produces = "application/json")
 	public ResponseEntity<SearchUserDTO> searchUsers(@RequestParam(value="q") String query,
 			@RequestParam(value="sort", defaultValue="") String sort,
 			@RequestParam(value="order", defaultValue="desc") String order,

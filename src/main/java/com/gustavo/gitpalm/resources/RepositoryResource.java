@@ -20,7 +20,10 @@ public class RepositoryResource {
 	@Autowired
 	private RepositoryService repositoryService;
 	
-	@GetMapping(value="/user/repos")
+	//produces = It means that the method will produce json as a result and will be sent in response.
+	//hey only serve to restrict the mapping to your request managers
+	// https://dzone.com/articles/using-the-spring-requestmapping-annotation
+	@GetMapping(value="/user/repos", produces = "application/json")
 	public ResponseEntity<List<RepositoryDTO>> listUserRepository(@RequestParam(value="visibility", defaultValue="all") String visibility,
 			@RequestParam(value="affiliation", defaultValue="owner,collaborator,organization_member") String affiliation,
 			@RequestParam(value="sort", defaultValue="full_name") String sort,
@@ -28,7 +31,7 @@ public class RepositoryResource {
 		return repositoryService.listUserRepository(visibility, affiliation, sort, direction);
 	}
 	
-	@GetMapping(value="/{username}/repos")
+	@GetMapping(value="/{username}/repos", produces = "application/json")
 	public ResponseEntity<List<RepositoryDTO>> listSpecifiedUserRepository(@PathVariable String username, 
 			@RequestParam(value="type", defaultValue="owner") String type,
 			@RequestParam(value="sort", defaultValue="full_name") String sort, 
@@ -37,7 +40,7 @@ public class RepositoryResource {
 		return repositoryService.listSpecifiedUserRepository(username, type, sort, direction);
 	}
 	
-	@GetMapping(value="{owner}/{repo}")
+	@GetMapping(value="{owner}/{repo}", produces = "application/json")
 	public ResponseEntity<RepositoryDTO> getRepository(@PathVariable String owner, @PathVariable String repo){
 		return repositoryService.getRepository(owner, repo);
 	}
